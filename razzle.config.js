@@ -1,20 +1,26 @@
-const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const devMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
     modify(config, { target, dev }, webpack) {
         const appConfig = config; // stay immutable here
-        
-        appConfig.module.rules.push({
-            test: /\.html$/,
-            loader: 'handlebars-template-loader',
-            options: {
-                includePaths: [path.resolve(__dirname, '../node_modules')]
-            }
-        });
 
-        appConfig.node = {
-            fs: 'empty'
-        };
+        appConfig.plugins.push(
+            new MiniCssExtractPlugin({
+                filename: devMode ? '[name].css' : '[name].[hash].css',
+                chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+            })
+        );
+
+        appConfig.module.rules.push({
+            test: /\.(sa|sc|c)ss$/,
+            use: [
+                MiniCssExtractPlugin.loader,
+                'css-loader',
+                'postcss-loader',
+                'sass-loader',
+            ]
+        });
 
         return appConfig;
     }
