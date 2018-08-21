@@ -1,5 +1,9 @@
 $nav-bar-height: rem-calc(56);
 
+body {
+  padding-top: $nav-bar-height;
+}
+
 .nav-bar {
   color: $white;
 
