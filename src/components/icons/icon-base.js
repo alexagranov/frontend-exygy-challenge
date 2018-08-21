@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import values from 'lodash.values';
 import { ICON_IDS } from '../../svg-definitions/svgs';
-import './icon-base.scss';
 
 const IconBase = ({
     classes,

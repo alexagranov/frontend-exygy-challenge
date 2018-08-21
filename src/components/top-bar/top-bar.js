@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import IconBase from '../icons/icon-base';
 import { ICON_IDS } from '../../svg-definitions/svgs';
-import './top-bar.scss';
 
 class TopBar extends Component {
     render() {

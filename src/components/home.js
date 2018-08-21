@@ -1,11 +1,19 @@
-import React, { Component } from 'react';
-import TopBar from './top-bar/top-bar';
-import './home.scss';
+import React from 'react';
 
-class Home extends Component {
-    render() {
-        return <TopBar />;
-    }
-}
+const Home = () => (
+    <div className="page" data-page="home">
+        <div className="background-banner"></div>
+
+        <div className="layout-content">
+            <div className="layout-main">
+                <div className="page-header">
+                    <div className="columns">
+                        <h1 className="page-title">Welcome Back, Phillip</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+);
 
 export default Home;

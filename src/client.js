@@ -4,10 +4,10 @@ import React from 'react';
 import { hydrate } from 'react-dom';
 
 hydrate(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  document.getElementById('root')
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>,
+    document.getElementById('root')
 );
 
 if (module.hot) {

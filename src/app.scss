@@ -1,6 +1,7 @@
 @charset 'UTF-8';
 
 // Configuration and utilities
+@import '~normalize.css/normalize.css';
 @import '~foundation-sites/scss/util/util';
 @import 'settings';
 @import '~foundation-sites/scss/foundation';
@@ -42,3 +43,11 @@
 @include foundation-top-bar;
 @include foundation-flex-grid;
 @include foundation-flex-classes;
+
+@import '~scut/dist/scut';
+@import 'styles/utils/utils';
+@import 'styles/atoms/atoms';
+@import 'styles/molecules/molecules';
+@import 'styles/organisms/organisms';
+
+@import 'components/icons/icon-base.scss';
