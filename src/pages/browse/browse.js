@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SearchBox from '../../components/search-box/search-box';
+import Slat from '../../components/slat/slat';
+import './browse.scss';
 
 export class Browse extends Component {
     static propTypes = {
@@ -20,9 +22,7 @@ export class Browse extends Component {
             <div className="browse-slat-set">
             {
                 documents.map((document, i) => (
-                    <div key={ i }>
-                        <span>Hello</span>
-                    </div>
+                    <Slat key={ i } {...document} />
                 ))
             }
             </div>
@@ -48,7 +48,7 @@ export class Browse extends Component {
                         </div>
                         <div className="browse-stage">
                             { this.handleDocumentRendering(documents) }
-                            { (!documents.length) ? null : this.renderNoResultsMessage() }
+                            { (!documents.length) ? this.renderNoResultsMessage(): null  }
                         </div>
                     </div>
                 </div>
@@ -60,14 +60,14 @@ export class Browse extends Component {
 export const mapStateToProps = (state) => {
     const documents = [{
         id: 3,
-        name: 'Approval Letter',
-        title: 'NDA 94623',
+        title: 'Approval Letter',
+        subtitle: 'NDA 94623',
         modified_by: 'Steven Aguilar',
         status: 'final',
         country: 'Germany',
         stared: false,
         created_at: '2018-08-19T23:19:19.137Z',
-        updated_at: '2018-08-19T23:19:19.137Z',
+        last_modified: '2018-08-19T23:19:19.137Z',
         document_type: 'pdf'
     }];
 

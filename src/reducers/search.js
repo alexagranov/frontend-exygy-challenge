@@ -1,6 +1,6 @@
 import { values } from 'lodash';
 import {
-    REQUEST_SEARCH_DOCUMENTSS_SUCCESS,
+    REQUEST_SEARCH_DOCUMENTS_SUCCESS,
     REQUEST_SEARCH_DOCUMENTS_ERROR
 } from '../action-types';
 
