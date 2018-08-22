@@ -2,7 +2,7 @@ import React from 'react';
 
 const Home = () => (
     <div className="page" data-page="home">
-        <div className="background-banner"></div>
+        <div className="background-banner" />
 
         <div className="layout-content">
             <div className="layout-main">

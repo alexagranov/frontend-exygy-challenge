@@ -8,7 +8,7 @@ import {
     SVGSearch
 } from './svgs';
 
-const SVGDefinitions = () =>
+const SVGDefinitions = () => (
     <svg style={ { display: 'none' } } xmlns="http://www.w3.org/2000/svg">
         <SVGClose />
         <SVGCloseLarge />
@@ -16,6 +16,7 @@ const SVGDefinitions = () =>
         <SVGLogo />
         <SVGMenu />
         <SVGSearch />
-    </svg>;
+    </svg>
+);
 
 export default SVGDefinitions;

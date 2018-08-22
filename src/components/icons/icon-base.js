@@ -2,43 +2,37 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import values from 'lodash.values';
 import { ICON_IDS } from '../../svg-definitions/svgs';
+import noop from '../../utils/noop';
 
 const IconBase = ({
     classes,
     id,
-    height,
-    width,
-    x,
-    y,
     onClick
-}) =>
+}) => (
     <span
         className={ `ui-icon ${classes}` }
         onClick={ onClick }
-        width={ width }
-        height={ height }
-        x={ x }
-        y={ y }
+        onKeyDown={ onClick }
+        role="link"
+        tabIndex={ 0 }
     >
         <svg>
             <use xlinkHref={ `#${id}` } />
         </svg>
-    </span>;
+    </span>
+);
 
 IconBase.displayName = 'IconBase';
 
 IconBase.propTypes = {
     classes: PropTypes.string,
-    id: PropTypes.oneOf(values(ICON_IDS)),
-    width: PropTypes.number,
-    height: PropTypes.number,
-    x: PropTypes.number,
-    y: PropTypes.number,
+    id: PropTypes.oneOf(values(ICON_IDS)).isRequired,
     onClick: PropTypes.func
 };
 
 IconBase.defaultProps = {
-    classes: ''
+    classes: '',
+    onClick: noop
 };
 
 export default IconBase;

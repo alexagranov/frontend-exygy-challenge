@@ -5,9 +5,8 @@ import { NavLink } from 'react-router-dom';
 const NavItemBase = ({
     classes,
     url,
-    text,
-    onClick
-}) =>
+    text
+}) => (
     <li
         id="nav-item-tasks"
         className={ classes }
@@ -15,20 +14,21 @@ const NavItemBase = ({
         <NavLink exact to={ url }>
             <span>{ text }</span>
         </NavLink>
-    </li>;
+    </li>
+);
 
 NavItemBase.displayName = 'NavItemBase';
 
 NavItemBase.propTypes = {
     classes: PropTypes.string,
     url: PropTypes.string,
-    text: PropTypes.string,
-    onClick: PropTypes.func
+    text: PropTypes.string
 };
 
 NavItemBase.defaultProps = {
     classes: '',
-    url: '#'
+    url: '#',
+    text: ''
 };
 
 export default NavItemBase;
