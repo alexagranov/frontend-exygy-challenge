@@ -4,12 +4,12 @@ import {
 } from '../action-types';
 
 export const initialState = {
-    currentSearch: '',
+    query: '',
     documents: [],
     isLoading: false
 };
 
-export default (state = initialState, { type, searchString, payload = [], error }) => {
+export default (state = initialState, { type, payload, error }) => {
     switch (type) {
         case REQUEST_SEARCH_DOCUMENTS_SUCCESS:
             return {
@@ -18,7 +18,9 @@ export default (state = initialState, { type, searchString, payload = [], error 
                 isLoading: false
             };
         case REQUEST_SEARCH_DOCUMENTS_ERROR:
-            return { ...state, error, isLoading: false };
+            return {
+                ...state, error, isLoading: false
+            };
         default:
             return state;
     }

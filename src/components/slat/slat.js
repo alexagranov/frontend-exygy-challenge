@@ -5,17 +5,31 @@ import IconBase from '../icons/icon-base';
 import { ICON_IDS } from '../../svg-definitions/svgs';
 import './slat.scss';
 
+const findFileId = (type) => {
+    switch (type) {
+        case 'excel':
+            return ICON_IDS.FILE_EXCEL;
+        case 'pdf':
+            return ICON_IDS.FILE_PDF;
+        case 'word':
+            return ICON_IDS.FILE_WORD;
+        default:
+            return null;
+    }
+};
+
 const Slat = ({
-    title,
-    subtitle,
-    modified_by,
-    last_modified,
-    status,
     country,
+    lastModified,
+    modifiedBy,
+    status,
+    subtitle,
+    title,
+    type,
 }) => (
-    <div href="#" className="slat row align-middle collapse word" data-ref="">
+    <div href="#" className={ `slat row align-middle collapse ${type}` } data-ref="">
         <div className="slat-avatar item-avatar">
-            <IconBase classes="i-word i-xlarge" id={ ICON_IDS.FILE_WORD } />
+            <IconBase classes={ `i-${type} i-xlarge` } id={ findFileId(type) } />
         </div>
 
         <div className="slat-body expand columns">
@@ -38,11 +52,13 @@ const Slat = ({
                 <div className="columns small-12 medium-6">
                     <p className="slat-attr-wrapper">
                         <span className="slat-attr-key">Modified By:</span>
-                        <span className="slat-attr-value">{ modified_by }</span>
+                        <span className="slat-attr-value">{ modifiedBy }</span>
                     </p>
                     <p className="slat-attr-wrapper">
                         <span className="slat-attr-key">Last Modified:</span>
-                        <span className="slat-attr-value">{ `${moment(last_modified).format('L')}` }</span>
+                        <span className="slat-attr-value">
+                            { `${moment(lastModified).format('L')}` }
+                        </span>
                     </p>
                 </div>
 
@@ -60,9 +76,15 @@ const Slat = ({
         </div>
 
         <div className="slat-secondary columns shrink">
-            <IconBase classes="i-darker-gray i-sm-medium slat-secondary-icon" id={ ICON_IDS.STAR } />
+            <IconBase
+                classes="i-darker-gray i-sm-medium slat-secondary-icon"
+                id={ ICON_IDS.STAR }
+            />
             <span className="float-right slat-dropdown">
-                <IconBase classes="i-darker-gray i-sm-medium slat-secondary-more" id={ ICON_IDS.MORE_VERT } />
+                <IconBase
+                    classes="i-darker-gray i-sm-medium slat-secondary-more"
+                    id={ ICON_IDS.MORE_VERT }
+                />
             </span>
         </div>
     </div>
@@ -71,21 +93,23 @@ const Slat = ({
 Slat.displayName = 'Slat';
 
 Slat.propTypes = {
-    title: PropTypes.string,
-    subtitle: PropTypes.string,
-    modified_by: PropTypes.string,
-    last_modified: PropTypes.string,
-    status: PropTypes.string,
     country: PropTypes.string,
+    lastModified: PropTypes.string,
+    modifiedBy: PropTypes.string,
+    status: PropTypes.string,
+    subtitle: PropTypes.string,
+    title: PropTypes.string,
+    type: PropTypes.string,
 };
 
 Slat.defaultProps = {
-    title: 'List and description of investigators and sites - 234567 - 00000003548',
-    subtitle: '16.1.4 List of Investigators',
-    modified_by: '',
-    last_modified: '',
-    status: '',
     country: '',
+    lastModified: '',
+    modifiedBy: '',
+    status: '',
+    subtitle: '16.1.4 List of Investigators',
+    title: 'List and description of investigators and sites - 234567 - 00000003548',
+    type: '',
 };
 
 export default Slat;

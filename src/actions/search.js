@@ -7,23 +7,18 @@ import { get } from '../api';
 
 export const requestSearchDocumentsSuccess = payload => ({
     type: REQUEST_SEARCH_DOCUMENTS_SUCCESS,
-    payload: {
-        payload
-    }
+    payload
 });
 
-export const requestSearchDocumentsError = (query, error) => ({
+export const requestSearchDocumentsError = (error) => ({
     type: REQUEST_SEARCH_DOCUMENTS_ERROR,
-    payload: {
-        query,
-        error
-    }
+    error
 });
 
 export const requestSearchDocuments = query =>
     dispatch =>
-        get('documents', { search: query, api_key: '123' }).then(
+        get('documents', { search: query }).then(
             (response) => {
                 dispatch(requestSearchDocumentsSuccess(toCamel(response.body)));
             }
-        ).catch(error => dispatch(requestSearchDocumentsError(query, error)));
+        ).catch(error => dispatch(requestSearchDocumentsError(error)));

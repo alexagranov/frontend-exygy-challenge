@@ -1,11 +1,11 @@
-import { camelCase, isArray, isPlainObject, reduce } from 'lodash';
+import {
+    camelCase, isArray, isPlainObject, reduce
+} from 'lodash';
 
 const convertKeys = (object, converter) => {
-    if (isArray(object))
-        return object.map(innerObject => convertKeys(innerObject, converter));
+    if (isArray(object)) return object.map(innerObject => convertKeys(innerObject, converter));
 
-    if (!isPlainObject(object))
-        return object;
+    if (!isPlainObject(object)) return object;
 
     return reduce(object, (result, value, key) => {
         /* eslint-disable no-param-reassign */

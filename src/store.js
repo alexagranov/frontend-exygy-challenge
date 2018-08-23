@@ -1,4 +1,6 @@
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import {
+    applyMiddleware, combineReducers, compose, createStore
+} from 'redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import * as reducers from './reducers';
@@ -20,4 +22,4 @@ export const createNewStore = (state = initialState) => (
 );
 
 let store;
-export const getStore = () => store || (store = createNewStore());
+export const getStore = () => store || (createNewStore());

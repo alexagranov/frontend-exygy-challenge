@@ -10,7 +10,15 @@ const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
 const server = express();
 
-server.use('/api', proxy(process.env.API_SERVER_URL));
+server.use('/api', proxy(process.env.API_SERVER_URL, {
+    proxyReqPathResolver: req => {
+        const parts = req.url.split('?');
+        const queryString = parts[1];
+        const updatedPath = parts[0];
+        const api_key = '?api_key=' + process.env.API_KEY;
+        return updatedPath + api_key + (queryString ? '&' + queryString : '');
+    }
+}));
 
 server
     .disable('x-powered-by')

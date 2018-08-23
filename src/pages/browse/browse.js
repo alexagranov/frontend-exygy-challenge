@@ -13,6 +13,10 @@ export class Browse extends Component {
         documents: PropTypes.array
     };
 
+    static defaultProps = {
+        documents: []
+    }
+
     componentDidMount() {
         this.fetchDocuments();
     }
@@ -23,28 +27,28 @@ export class Browse extends Component {
     }
 
     handleDocumentRendering = (documents) => {
-        if (documents.length) {
-            return this.renderDocuments(documents);
-        }
-        return null;
+        if (!documents) return this.renderNoResultsMessage();
+
+        if (documents.length) return this.renderDocuments(documents);
+
+        return this.renderNoResultsMessage();
     };
 
-    renderDocuments = (documents) => {
-        return (
-            <div className="browse-slat-set">
+    renderDocuments = documents => (
+        <div className="browse-slat-set">
             {
-                documents.map((document, i) => (
-                    <Slat key={ i } {...document} />
+                documents.map(document => (
+                    <Slat key={ document.id } { ...document } />
                 ))
             }
-            </div>
-        );
-    };
+        </div>
+    );
 
-    renderNoResultsMessage = () =>
+    renderNoResultsMessage = () => (
         <div className="NoDocuments">
             <span>Sorry, no results.</span>
-        </div>;
+        </div>
+    );
 
     render() {
         const {
@@ -60,22 +64,47 @@ export class Browse extends Component {
                         </div>
                         <div className="browse-stage">
                             { this.handleDocumentRendering(documents) }
-                            { (!documents.length) ? this.renderNoResultsMessage(): null  }
                         </div>
                     </div>
                 </div>
             </div>
         );
-    };
-};
+    }
+}
 
-export const mapStateToProps = state => {
+export const mapStateToProps = (state) => {
     const {
         documents
     } = state.search;
 
+    const mappedDocs = documents.map((document) => {
+        if (!document) return null;
+
+        const {
+            country,
+            documentType,
+            id,
+            modifiedBy,
+            name,
+            status,
+            title,
+            updatedAt
+        } = document;
+
+        return ({
+            country,
+            type: documentType,
+            id,
+            modifiedBy,
+            title: name,
+            status,
+            subtitle: title,
+            lastModified: updatedAt
+        });
+    });
+
     return {
-        documents
+        documents: mappedDocs
     };
 };
 
