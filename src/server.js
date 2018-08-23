@@ -2,12 +2,16 @@
 import React from 'react';
 import { StaticRouter } from 'react-router-dom';
 import express from 'express';
+import proxy from 'express-http-proxy';
 import { renderToString } from 'react-dom/server';
 import App from './app';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
 const server = express();
+
+server.use('/api', proxy(process.env.API_SERVER_URL));
+
 server
     .disable('x-powered-by')
     .use(express.static(process.env.RAZZLE_PUBLIC_DIR))

@@ -21,6 +21,8 @@
     "jslintables": "src"
   },
   "dependencies": {
+    "dotenv": "^6.0.0",
+    "es6-error": "^4.1.1",
     "express": "^4.16.3",
     "fast-glob": "^2.2.2",
     "foundation-sites": "^6.5.0-rc.2",
@@ -39,6 +41,7 @@
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
+    "superagent": "^3.8.3",
     "what-input": "^5.1.1"
   },
   "devDependencies": {

@@ -1,6 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {
+    requestSearchDocuments
+} from '../../actions/search';
 import SearchBox from '../../components/search-box/search-box';
 import Slat from '../../components/slat/slat';
 import './browse.scss';
@@ -9,6 +12,15 @@ export class Browse extends Component {
     static propTypes = {
         documents: PropTypes.array
     };
+
+    componentDidMount() {
+        this.fetchDocuments();
+    }
+
+    fetchDocuments = () => {
+        const { dispatch } = this.props;
+        dispatch(requestSearchDocuments());
+    }
 
     handleDocumentRendering = (documents) => {
         if (documents.length) {
@@ -57,19 +69,10 @@ export class Browse extends Component {
     };
 };
 
-export const mapStateToProps = (state) => {
-    const documents = [{
-        id: 3,
-        title: 'Approval Letter',
-        subtitle: 'NDA 94623',
-        modified_by: 'Steven Aguilar',
-        status: 'final',
-        country: 'Germany',
-        stared: false,
-        created_at: '2018-08-19T23:19:19.137Z',
-        last_modified: '2018-08-19T23:19:19.137Z',
-        document_type: 'pdf'
-    }];
+export const mapStateToProps = state => {
+    const {
+        documents
+    } = state.search;
 
     return {
         documents
