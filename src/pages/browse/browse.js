@@ -1,19 +1,26 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { throttle } from 'lodash';
 import {
-    requestSearchDocuments
+    requestSearchDocuments,
+    setSearchString,
+    clearSearchString
 } from '../../actions/search';
 import SearchBox from '../../components/search-box/search-box';
 import Slat from '../../components/slat/slat';
 import './browse.scss';
 
+const throttleTimeout = 400;
+
 export class Browse extends Component {
     static propTypes = {
+        currentSearch: PropTypes.string,
         documents: PropTypes.array
     };
 
     static defaultProps = {
+        currentSearch: '',
         documents: []
     }
 
@@ -34,6 +41,25 @@ export class Browse extends Component {
         return this.renderNoResultsMessage();
     };
 
+    handleQueryChanging = (inputValue) => {
+        const { dispatch } = this.props;
+
+        dispatch(setSearchString(inputValue));
+        this.throttledRequest(inputValue);
+    };
+
+    clearQuery = () => {
+        const { dispatch } = this.props;
+
+        dispatch(clearSearchString());
+        this.throttledRequest('');
+    };
+
+    throttledRequest = throttle((searchString) => {
+        const { dispatch } = this.props;
+        dispatch(requestSearchDocuments(searchString));
+    }, throttleTimeout);
+
     renderDocuments = documents => (
         <div className="browse-slat-set">
             {
@@ -52,6 +78,7 @@ export class Browse extends Component {
 
     render() {
         const {
+            currentSearch,
             documents
         } = this.props;
 
@@ -60,7 +87,7 @@ export class Browse extends Component {
                 <div className="layout-content">
                     <div className="layout-main">
                         <div className="browse-search">
-                            <SearchBox />
+                            <SearchBox onInputChange={ this.handleQueryChanging } clearInput={ this.clearQuery } value={ currentSearch } />
                         </div>
                         <div className="browse-stage">
                             { this.handleDocumentRendering(documents) }
@@ -74,6 +101,7 @@ export class Browse extends Component {
 
 export const mapStateToProps = (state) => {
     const {
+        currentSearch,
         documents
     } = state.search;
 
@@ -104,6 +132,7 @@ export const mapStateToProps = (state) => {
     });
 
     return {
+        currentSearch,
         documents: mappedDocs
     };
 };
